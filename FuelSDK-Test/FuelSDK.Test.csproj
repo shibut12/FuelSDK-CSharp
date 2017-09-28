@@ -48,9 +48,11 @@
     <Compile Include="ETListTest.cs" />
     <Compile Include="ETOpenEventTest.cs" />
     <Compile Include="ETQueryDefinitionTest.cs" />
+    <Compile Include="ETResultMessageTest.cs" />
     <Compile Include="ETSentEventTest.cs" />
     <Compile Include="ETSubscriberTest.cs" />
     <Compile Include="ETTriggeredSendDefinitionTest.cs" />
+    <Compile Include="ETTriggeredSendSummaryTest.cs" />
     <Compile Include="ETUnsubEventTest.cs" />
   </ItemGroup>
   <ItemGroup>
