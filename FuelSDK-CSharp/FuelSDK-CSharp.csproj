@@ -137,6 +137,12 @@
     <Compile Include="ETEndpoint.cs" />
     <Compile Include="ExecuteAPIResponse.cs" />
     <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
+    <Compile Include="SMS\ETQueueMO.cs" />
+    <Compile Include="SMS\ETQueueMOResponse.cs" />
+    <Compile Include="SMS\ETQueueMOResult.cs" />
+    <Compile Include="SMS\ETSMSResponse.cs" />
+    <Compile Include="SMS\ETSMSReturn.cs" />
+    <Compile Include="SMS\ETSMSSubscriber.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

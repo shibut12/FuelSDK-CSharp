@@ -37,7 +37,7 @@ namespace FuelSDK.Test
             {
                 AuthStub = client
             };
-            dataExtract.OutputFileName = "TrackingData_%%Year%%_%%Month%%_%%Day%%.csv";
+            dataExtract.OutputFileName = "TrackingData_%%Year%%_%%Month%%_%%Day%%.zip";
             dataExtract.StartDate = DateTime.Now.AddDays(-8);
             dataExtract.EndDate = DateTime.Now.AddDays(-1);
             var response = dataExtract.ExtractTrackingData();

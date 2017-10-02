@@ -42,13 +42,13 @@ namespace FuelSDK
         /// Gets or sets the SOAP end point.
         /// </summary>
         /// <value>The SOAP end point.</value>
-		[ConfigurationProperty("soapEndPoint", DefaultValue = "https://webservice.s4.exacttarget.com/Service.asmx")]
+		[ConfigurationProperty("soapEndPoint", DefaultValue = "https://webservice.exacttarget.com/Service.asmx")]
 		public string SoapEndPoint
 		{
 			get { return (string)this["soapEndPoint"]; }
 			set { this["soapEndPoint"] = value; }
 		}
-		[ConfigurationProperty("authEndPoint", DefaultValue = "https://auth-qa.exacttargetapis.com/v1/requestToken?legacy=1")]
+		[ConfigurationProperty("authEndPoint", DefaultValue = "https://auth-qa1.exacttargetapis.com/v1/requestToken?legacy=1")]
 		public string AuthenticationEndPoint
 		{
 			get { return (string)this["authEndPoint"]; }
