@@ -48,6 +48,7 @@
     <Compile Include="ETListTest.cs" />
     <Compile Include="ETOpenEventTest.cs" />
     <Compile Include="ETQueryDefinitionTest.cs" />
+    <Compile Include="ETQueueMOTest.cs" />
     <Compile Include="ETResultMessageTest.cs" />
     <Compile Include="ETSentEventTest.cs" />
     <Compile Include="ETSMSSubscriptionStatusTest.cs" />
