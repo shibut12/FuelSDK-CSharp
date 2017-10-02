@@ -124,6 +124,12 @@ namespace FuelSDK
 			_translators.Add(typeof(ETTriggerSend), typeof(TriggeredSend));
 			_translators.Add(typeof(TriggeredSend), typeof(ETTriggerSend));
 
+            _translators.Add(typeof(ETTriggeredSendSummary), typeof(TriggeredSendSummary));
+            _translators.Add(typeof(TriggeredSendSummary), typeof(ETTriggeredSendSummary));
+
+            _translators.Add(typeof(ETResultMessage), typeof(ResultMessage));
+            _translators.Add(typeof(ResultMessage), typeof(ETResultMessage));
+
 			// Tracking Events
 			_translators.Add(typeof(ETBounceEvent), typeof(BounceEvent));
 			_translators.Add(typeof(BounceEvent), typeof(ETBounceEvent));

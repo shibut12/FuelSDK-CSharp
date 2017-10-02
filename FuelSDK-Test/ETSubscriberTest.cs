@@ -108,7 +108,32 @@ namespace FuelSDK.Test
             subscriber = null;
         }
 
-        
+        [Test()]
+        public void CreateMultiple()
+        {
+            var rnd = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                subsEmail = string.Format("abc.xyz{0}@gmail.com", rnd.Next(10000, 99999)); ;
+                subsKey = subsEmail;// System.Guid.NewGuid().ToString();
+
+                var subsObj = new ETSubscriber
+                {
+                    AuthStub = client,
+                    EmailAddress = subsEmail,
+                    SubscriberKey = subsKey,
+                    Status = SubscriberStatus.Active,
+                    Attributes = new[] { new ETProfileAttribute { Name = "FullName", Value = "Test Subscriber" } }
+                };
+
+                var response = subsObj.Post();
+                Assert.AreEqual(response.Code, 200);
+                Assert.AreEqual(response.Status, true); ;
+
+            }
+        }
+
+
 
 
     }

@@ -143,9 +143,9 @@ namespace FuelSDK
             {
                 throw new ApplicationException("Output file name is empty or null. Please fill output file name.");
             }
-            if (!OutputFileName.ToLower().EndsWith(".csv") && !OutputFileName.ToLower().EndsWith(".zip"))
+            if (!OutputFileName.ToLower().EndsWith(".zip"))
             {
-                throw new ApplicationException("Invalid file extension. Only csv or zip allowed.");
+                throw new ApplicationException("Invalid file extension. Only zip extension allowed, as the return data will be in individual files.");
             }
         }
 
@@ -159,9 +159,9 @@ namespace FuelSDK
             {
                 throw new ApplicationException("Output file name is empty or null. Please fill output file name.");
             }
-            if (!OutputFileName.ToLower().EndsWith(".zip"))
+            if (!OutputFileName.ToLower().EndsWith(".csv") && !OutputFileName.ToLower().EndsWith(".zip"))
             {
-                throw new ApplicationException("Invalid file extension. Only zip extension allowed, as the return data will be in individual files.");
+                throw new ApplicationException("Invalid file extension. Only csv or zip allowed.");
             }
         }
 
