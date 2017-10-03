@@ -51,6 +51,7 @@
     <Compile Include="ETQueueMOTest.cs" />
     <Compile Include="ETResultMessageTest.cs" />
     <Compile Include="ETSentEventTest.cs" />
+    <Compile Include="ETSMSKeywordTest.cs" />
     <Compile Include="ETSMSSubscriptionStatusTest.cs" />
     <Compile Include="ETSubscriberTest.cs" />
     <Compile Include="ETTriggeredSendDefinitionTest.cs" />

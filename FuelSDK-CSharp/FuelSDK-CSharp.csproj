@@ -136,6 +136,8 @@
     <Compile Include="ETCampaignAsset.cs" />
     <Compile Include="ETEndpoint.cs" />
     <Compile Include="ExecuteAPIResponse.cs" />
+    <Compile Include="SMS\ETSMSKeyword.cs" />
+    <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
     <Compile Include="SMS\ETQueueMO.cs" />
     <Compile Include="SMS\ETQueueMOResponse.cs" />
