@@ -51,7 +51,7 @@ namespace FuelSDK.SMS
             return smsreturn.PerformKeywordOperation(this, "POST");
         }
 
-        public ETSMSKeywordResponse DeleteKeyword()
+        public ETSMSKeywordResponse DeleteKeywordByKeywordId()
         {
             if (KeywordId == null || KeywordId.Length == 0)
             {
@@ -63,7 +63,48 @@ namespace FuelSDK.SMS
 
             ETSMSReturn smsreturn = new ETSMSReturn();
             return smsreturn.PerformKeywordOperation(this, "DELETE");
-            //return null;
+        }
+
+        public ETSMSKeywordResponse DeleteKeywordByLongCode()
+        {
+            if (LongCode == null || LongCode.Length == 0)
+            {
+                throw new ApplicationException("LongCode is either null or empty. Need to specify LongCode.");
+            }
+            if (Keyword == null || Keyword.Length == 0)
+            {
+                throw new ApplicationException("Keyword is either null or empty. Need to specify Keyword.");
+            }
+
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/keyword/{Keyword}/{LongCode}";
+            URLProperties = new[] { "Keyword", "LongCode" };
+            RequiredURLProperties = new[] { "Keyword", "LongCode" };
+
+            ETSMSReturn smsreturn = new ETSMSReturn();
+            return smsreturn.PerformKeywordOperation(this, "DELETE");
+        }
+
+        public ETSMSKeywordResponse DeleteKeywordByShortCode()
+        {
+            if (ShortCode == null || ShortCode.Length == 0)
+            {
+                throw new ApplicationException("ShortCode is either null or empty. Need to specify ShortCode.");
+            }
+            if (Keyword == null || Keyword.Length == 0)
+            {
+                throw new ApplicationException("Keyword is either null or empty. Need to specify Keyword.");
+            }
+            if (CountryCode == null || CountryCode.Length == 0)
+            {
+                throw new ApplicationException("CountryCode is either null or empty. Need to specify CountryCode.");
+            }
+
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/keyword/{Keyword}/{ShortCode}/{CountryCode}";
+            URLProperties = new[] { "Keyword", "ShortCode", "CountryCode" };
+            RequiredURLProperties = new[] { "Keyword", "ShortCode", "CountryCode" };
+
+            ETSMSReturn smsreturn = new ETSMSReturn();
+            return smsreturn.PerformKeywordOperation(this, "DELETE");
         }
     
     }
