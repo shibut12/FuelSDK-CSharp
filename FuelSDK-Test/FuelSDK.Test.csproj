@@ -55,6 +55,7 @@
     <Compile Include="ETTriggeredSendDefinitionTest.cs" />
     <Compile Include="ETTriggeredSendSummaryTest.cs" />
     <Compile Include="ETUnsubEventTest.cs" />
+    <Compile Include="PushMessageTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

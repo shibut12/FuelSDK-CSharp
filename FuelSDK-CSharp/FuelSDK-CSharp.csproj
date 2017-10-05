@@ -84,6 +84,15 @@
     <Compile Include="ETResultMessage.cs" />
     <Compile Include="ETTriggeredSendSummary.cs" />
     <Compile Include="ExactTargetSOAP.cs" />
+    <Compile Include="FuelSDKException.cs" />
+    <Compile Include="MobilePush\MobilePushBase.cs" />
+    <Compile Include="MobilePush\PushMessageResponse.cs" />
+    <Compile Include="MobilePush\MobilePushReturn.cs" />
+    <Compile Include="MobilePush\PushMessageApplication.cs" />
+    <Compile Include="MobilePush\PushMessage.cs" />
+    <Compile Include="MobilePush\PushMessageContentType.cs" />
+    <Compile Include="MobilePush\PushMessageStatus.cs" />
+    <Compile Include="MobilePush\PushMessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -94,6 +103,7 @@
     <Compile Include="APIObject.cs" />
     <Compile Include="FuelObject.cs" />
     <Compile Include="FuelReturn.cs" />
+    <Compile Include="RequestMethod.cs" />
     <Compile Include="ResultDetail.cs" />
     <Compile Include="PostReturn.cs" />
     <Compile Include="SendReturn.cs" />
@@ -160,6 +170,7 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
