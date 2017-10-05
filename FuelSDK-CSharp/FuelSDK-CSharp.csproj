@@ -81,6 +81,8 @@
     <Compile Include="ETClient.cs" />
     <Compile Include="ETDataExtract.cs" />
     <Compile Include="ETExtractDescription.cs" />
+    <Compile Include="ETPushCustomKey.cs" />
+    <Compile Include="ETPushLocation.cs" />
     <Compile Include="ETResultMessage.cs" />
     <Compile Include="ETTriggeredSendSummary.cs" />
     <Compile Include="ExactTargetSOAP.cs" />

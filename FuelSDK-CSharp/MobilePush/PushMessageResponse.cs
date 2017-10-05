@@ -1,16 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace FuelSDK.SMS
+namespace FuelSDK.MobilePush
 {
-    internal class ETSMSResponse
+    public class PushMessageResponse
     {
         public HttpStatusCode Code { get; set; }
         public string Message { get; set; }
         public string Response { get; set; }
     }
 }
-
