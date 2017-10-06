@@ -81,11 +81,20 @@
     <Compile Include="ETClient.cs" />
     <Compile Include="ETDataExtract.cs" />
     <Compile Include="ETExtractDescription.cs" />
-    <Compile Include="ETPushCustomKey.cs" />
-    <Compile Include="ETPushLocation.cs" />
     <Compile Include="ETResultMessage.cs" />
     <Compile Include="ETTriggeredSendSummary.cs" />
     <Compile Include="ExactTargetSOAP.cs" />
+    <Compile Include="FuelSDKException.cs" />
+    <Compile Include="MobilePush\MobilePushBase.cs" />
+    <Compile Include="MobilePush\MobilePushCustomKey.cs" />
+    <Compile Include="MobilePush\MobilePushLocation.cs" />
+    <Compile Include="MobilePush\PushMessageResponse.cs" />
+    <Compile Include="MobilePush\MobilePushReturn.cs" />
+    <Compile Include="MobilePush\PushMessageApplication.cs" />
+    <Compile Include="MobilePush\PushMessage.cs" />
+    <Compile Include="MobilePush\PushMessageContentType.cs" />
+    <Compile Include="MobilePush\PushMessageStatus.cs" />
+    <Compile Include="MobilePush\PushMessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -96,6 +105,7 @@
     <Compile Include="APIObject.cs" />
     <Compile Include="FuelObject.cs" />
     <Compile Include="FuelReturn.cs" />
+    <Compile Include="RequestMethod.cs" />
     <Compile Include="ResultDetail.cs" />
     <Compile Include="PostReturn.cs" />
     <Compile Include="SendReturn.cs" />
@@ -138,17 +148,17 @@
     <Compile Include="ETCampaignAsset.cs" />
     <Compile Include="ETEndpoint.cs" />
     <Compile Include="ExecuteAPIResponse.cs" />
+    <Compile Include="SMS\ETQueueMO.cs" />
+    <Compile Include="SMS\ETQueueMOResponse.cs" />
+    <Compile Include="SMS\ETQueueMOResult.cs" />
     <Compile Include="SMS\ETSMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\ETSMSOptIn.cs" />
     <Compile Include="SMS\ETSMSOptInResponse.cs" />
-    <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
-    <Compile Include="SMS\ETQueueMO.cs" />
-    <Compile Include="SMS\ETQueueMOResponse.cs" />
-    <Compile Include="SMS\ETQueueMOResult.cs" />
     <Compile Include="SMS\ETSMSResponse.cs" />
     <Compile Include="SMS\ETSMSReturn.cs" />
     <Compile Include="SMS\ETSMSSubscriber.cs" />
+    <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -167,6 +177,7 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

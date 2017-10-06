@@ -57,6 +57,8 @@
     <Compile Include="ETTriggeredSendDefinitionTest.cs" />
     <Compile Include="ETTriggeredSendSummaryTest.cs" />
     <Compile Include="ETUnsubEventTest.cs" />
+    <Compile Include="MobilePushCustomKeyTest.cs" />
+    <Compile Include="MobilePushLocationTest.cs" />
     <Compile Include="PushMessageTest.cs" />
   </ItemGroup>
   <ItemGroup>
