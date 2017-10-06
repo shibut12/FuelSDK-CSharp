@@ -86,6 +86,7 @@
     <Compile Include="ExactTargetSOAP.cs" />
     <Compile Include="FuelSDKException.cs" />
     <Compile Include="MobilePush\MobilePushBase.cs" />
+    <Compile Include="MobilePush\PushMessageKey.cs" />
     <Compile Include="MobilePush\PushMessageResponse.cs" />
     <Compile Include="MobilePush\MobilePushReturn.cs" />
     <Compile Include="MobilePush\PushMessageApplication.cs" />

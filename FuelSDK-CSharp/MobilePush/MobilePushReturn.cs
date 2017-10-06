@@ -13,19 +13,102 @@ namespace FuelSDK.MobilePush
     internal class MobilePushReturn
     {
 
-        public static PushMessage CreatePushMessage(PushMessage obj, RequestMethod method)
+        internal static PushMessage CreatePushMessage(PushMessage obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), true);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
             if (resp.Code == HttpStatusCode.Created)
             {
                 return JsonConvert.DeserializeObject<PushMessage>(resp.Response);
             }
-            else 
+            else
             {
                 var errors = GetErrorList(resp.Message);
                 throw new FuelSDKException(errors);
             }
-            
+
+        }
+
+        internal static PushMessage[] GetPushMessages(ETClient client)
+        {
+            PushMessage obj = new PushMessage
+            {
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<PushMessage[]>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+
+        }
+
+        internal static PushMessage GetPushMessage(ETClient client, string id)
+        {
+            PushMessage obj = new PushMessage
+            {
+                Id = id,
+                Endpoint = "https://www.exacttargetapis.com/push/v1/message/{Id}",
+                URLProperties = new string[1] { "Id" },
+                RequiredURLProperties = new string[1] { "Id" },
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<PushMessage>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+
+        }
+
+        internal static PushMessage UpdatePushMessage(PushMessage obj)
+        {
+
+            obj.Endpoint = "https://www.exacttargetapis.com/push/v1/message/{Id}";
+            obj.URLProperties = new string[1] { "Id" };
+            obj.RequiredURLProperties = new string[1] { "Id" };
+
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.PUT.ToString(), true);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<PushMessage>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool DeletePushMessage(ETClient client, string id)
+        {
+            PushMessage obj = new PushMessage
+            {
+                Id = id,
+                Endpoint = "https://www.exacttargetapis.com/push/v1/message/{Id}",
+                URLProperties = new string[1] { "Id" },
+                RequiredURLProperties = new string[1] { "Id" },
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.DELETE.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
         }
 
         private static PushMessageResponse ExecuteFuel(MobilePushBase pushObj, string[] required, string method, bool postValue)
@@ -38,6 +121,7 @@ namespace FuelSDK.MobilePush
             string propValueAsString;
             var completeURL = pushObj.Endpoint;
             if (required != null)
+            {
                 foreach (string urlProp in required)
                 {
                     var match = false;
@@ -52,20 +136,28 @@ namespace FuelSDK.MobilePush
                     if (!match)
                         throw new Exception("Unable to process request due to missing required property: " + urlProp);
                 }
+            }
             foreach (var prop in pushObj.GetType().GetProperties())
             {
                 if (prop.Name == "UniqueID")
+                {
                     continue;
-                if (pushObj.URLProperties.Contains(prop.Name) && (propValue = prop.GetValue(pushObj, null)) != null)
-                    if ((propValueAsString = propValue.ToString().Trim()).Length > 0 && propValueAsString != "0")
-                        completeURL = completeURL.Replace("{" + prop.Name + "}", propValueAsString);
+                }
+                if ((pushObj.URLProperties.Contains(prop.Name) && (propValue = prop.GetValue(pushObj, null)) != null) &&
+                    ((propValueAsString = propValue.ToString().Trim()).Length > 0 && propValueAsString != "0"))
+                {
+                    completeURL = completeURL.Replace("{" + prop.Name + "}", propValueAsString);
+                }
             }
 
             // Clean up not required URL parameters
             if (pushObj.URLProperties != null)
+            {
                 foreach (string urlProp in pushObj.URLProperties)
+                {
                     completeURL = completeURL.Replace("{" + urlProp + "}", string.Empty);
-
+                }
+            }
             completeURL += "?access_token=" + pushObj.AuthStub.AuthToken;
             //this code may be needed.. leaving commented to revisit later
             //if (pushObj.Page != 0)
@@ -119,7 +211,7 @@ namespace FuelSDK.MobilePush
             if (x["errors"] != null)
             {
                 var resultArray = x.Children<JProperty>().FirstOrDefault(o => o.Name == "errors").Value;
-                 errorList = resultArray.Select(e => e.ToString()).ToArray();
+                errorList = resultArray.Select(e => e.ToString()).ToArray();
             }
             return errorList;
         }
