@@ -88,6 +88,7 @@
     <Compile Include="MobilePush\MobilePushBase.cs" />
     <Compile Include="MobilePush\MobilePushCustomKey.cs" />
     <Compile Include="MobilePush\MobilePushLocation.cs" />
+    <Compile Include="MobilePush\PushMessageKey.cs" />
     <Compile Include="MobilePush\PushMessageResponse.cs" />
     <Compile Include="MobilePush\MobilePushReturn.cs" />
     <Compile Include="MobilePush\PushMessageApplication.cs" />

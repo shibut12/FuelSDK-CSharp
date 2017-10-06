@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FuelSDK.MobilePush
 {
+    /// <summary>
+    /// Represents push message type as an enumeration
+    /// </summary>
     public enum PushMessageType
     {
         Outbound = 1,

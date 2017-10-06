@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FuelSDK.MobilePush
 {
+    /// <summary>
+    /// Represetns push message status as an enumeration
+    /// </summary>
     public enum PushMessageStatus
     {
         Draft = 1,
