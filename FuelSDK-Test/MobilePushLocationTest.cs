@@ -25,6 +25,7 @@ namespace FuelSDK.Test
         {
             CreateLocationTest();
             GetLocationTest();
+            GetAllLocationsTest();
             UpdateLocationTest();
             DeleteLocationTest();
         }
@@ -72,6 +73,23 @@ namespace FuelSDK.Test
             Assert.AreEqual(cloc.LocationId, locId);
         }
 
+//        [Test()]
+        public void GetAllLocationsTest()
+        {
+            MobilePushLocation loc = new MobilePushLocation
+            {
+                AuthStub = client,
+            };
+
+            MobilePushLocation[] locs = loc.GetLocations();
+            foreach (MobilePushLocation gloc in locs)
+            {
+                Debug.WriteLine("Get Loc ID=" + gloc.LocationId);
+                Assert.NotNull(gloc.LocationId);
+            }
+            
+        }
+        
 //        [Test()]
         public void UpdateLocationTest()
         {

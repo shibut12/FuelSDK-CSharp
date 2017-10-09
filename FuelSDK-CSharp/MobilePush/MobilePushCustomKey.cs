@@ -6,14 +6,34 @@ using Newtonsoft.Json.Linq;
 
 namespace FuelSDK.MobilePush
 {
+    /// <summary>
+    /// MobilePushCustomKey class represents the custom key for mobile push
+    /// </summary>
     public class MobilePushCustomKey : MobilePushBase
     {
+        /// <summary>
+        /// Get or Set the application ID of the custom key.
+        /// </summary>
+        /// <value>Application of the custom key</value>
         public string ApplicationId { get; set; }
-        //public CustomKey[] Keys { get; set; }
+        /// <summary>
+        /// Get or Set all the keys.
+        /// </summary>
         public string[] Keys { get; set; }
+        /// <summary>
+        /// Get or Set the key name of the custom key.
+        /// </summary>
+        /// <value>Key name of the custom key</value>
         public string KeyName { get; set; }
+        /// <summary>
+        /// Get or Set the description of the custom key.
+        /// </summary>
+        /// <value>Description of the custom key</value>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Default constructor. Initialize the default endpoint, URLProperties and requried URL properties.
+        /// </summary>
         public MobilePushCustomKey()
         {
             Endpoint = "https://www.exacttargetapis.com/push/v1/application/{ApplicationId}/key";
@@ -21,20 +41,23 @@ namespace FuelSDK.MobilePush
             RequiredURLProperties = new[] { "ApplicationId" };
         }
 
-        public MobilePushCustomKey(JToken obj)
-        {
-        }
-
+        /// <summary>
+        /// Deletes all custom keys.
+        /// </summary>
+        /// <returns>retruns true if successfull, false or exception otherwise.</returns>
         public bool DeleteCustomKeys()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
                 throw new ApplicationException("ApplicationId is either null or empty. Need to specify ApplicationId.");
             }
-            // code to delete Custom Key & return response
             return MobilePushReturn.DeleteCustomKeys(this, RequestMethod.DELETE);
         }
 
+        /// <summary>
+        /// Deletes one custom key associated with the key name.
+        /// </summary>
+        /// <returns>retruns true if successfull, false or exception otherwise.</returns>
         public bool DeleteOneCustomKey()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
@@ -45,7 +68,6 @@ namespace FuelSDK.MobilePush
             {
                 throw new ApplicationException("KeyName is either null or empty. Need to specify KeyName.");
             }
-            // code to delete Custom Key & return response
             Endpoint = "https://www.exacttargetapis.com/push/v1/application/{ApplicationId}/key/{KeyName}";
             URLProperties = new[] { "ApplicationId", "KeyName" };
             RequiredURLProperties = new[] { "ApplicationId", "KeyName" };
@@ -62,6 +84,10 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.GetCustomKeys(this, RequestMethod.GET);
         }
 
+        /// <summary>
+        /// Creates a custom key.
+        /// </summary>
+        /// <returns>retruns true if successfull, false or exception otherwise.</returns>
         public bool CreateCustomKey()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
@@ -79,6 +105,10 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.CreateCustomKey(this, RequestMethod.PUT);
         }
 
+        /// <summary>
+        /// Updates a custom key.
+        /// </summary>
+        /// <returns>retruns true if successfull, false or exception otherwise.</returns>
         public bool UpdateCustomKey()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
@@ -95,11 +125,5 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.UpdateCustomKey(this, RequestMethod.PUT);
         }
 
-    }
-
-    public class CustomKey
-    {
-        public string Key { get; set; }
-        public string Description { get; set; }
     }
 }

@@ -44,6 +44,25 @@ namespace FuelSDK.MobilePush
             }
         }
 
+        public static MobilePushLocation[] GetLocations(ETClient client)
+        {
+            PushMessage obj = new PushMessage
+            {
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<MobilePushLocation[]>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+
+        }
+
         public static bool DeleteLocation(MobilePushLocation obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
