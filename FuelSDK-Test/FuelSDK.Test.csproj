@@ -35,6 +35,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactListTest.cs" />
     <Compile Include="ETCampaignTest.cs" />
     <Compile Include="ETContentAreaTest.cs" />
     <Compile Include="ETDataExtensionColumnTest.cs" />
