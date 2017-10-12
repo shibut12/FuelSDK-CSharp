@@ -46,7 +46,7 @@ namespace FuelSDK.Test
                 ApplicationId = appId
             };
 
-            var k = ckey.GetCustomKey();
+            var k = ckey.GetCustomKeys();
             Debug.WriteLine("keys=" + k);
             Assert.IsNotNull(k);
         }
@@ -74,7 +74,7 @@ namespace FuelSDK.Test
                 KeyName = this.keyname
             };
 
-            var b = ckey.DeleteOneCustomKey();
+            var b = ckey.DeleteCustomKey();
             Debug.WriteLine("Delete1=" + b);
             Assert.IsTrue(b);
         }

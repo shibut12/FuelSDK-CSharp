@@ -85,10 +85,13 @@
     <Compile Include="ETTriggeredSendSummary.cs" />
     <Compile Include="ExactTargetSOAP.cs" />
     <Compile Include="FuelSDKException.cs" />
+    <Compile Include="MobilePush\LocationAttribute.cs" />
+    <Compile Include="MobilePush\LocationCenter.cs" />
     <Compile Include="MobilePush\MobilePushBase.cs" />
     <Compile Include="MobilePush\MobilePushCustomKey.cs" />
     <Compile Include="MobilePush\MobilePushLocation.cs" />
     <Compile Include="MobilePush\PushMessageKey.cs" />
+    <Compile Include="MobilePush\PushMessageLocationType.cs" />
     <Compile Include="MobilePush\PushMessageResponse.cs" />
     <Compile Include="MobilePush\MobilePushReturn.cs" />
     <Compile Include="MobilePush\PushMessageApplication.cs" />

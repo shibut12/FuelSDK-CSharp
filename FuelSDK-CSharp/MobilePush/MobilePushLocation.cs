@@ -43,7 +43,7 @@ namespace FuelSDK.MobilePush
         /// Beacon = 3
         /// </summary>
         /// <value>type of the location</value>
-        public int LocationType { get; set; }
+        public PushMessageLocationType LocationType { get; set; }
         /// <summary>
         /// Get or Set the value a particular beacon within a group. Required if creating a beacon location. This number is found on the beacon hardware.
         /// </summary>
@@ -64,10 +64,10 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <value>Attributes for the location</value>
         public LocationAttribute[] Attributes { get; set; }
-        [JsonProperty(PropertyName = "id")]
         /// <summary>
         /// Get or Set the location ID of the location.
         /// </summary>
+        [JsonProperty(PropertyName = "id")]
         public string LocationId { get; set; }
 
         /// <summary>
@@ -78,10 +78,7 @@ namespace FuelSDK.MobilePush
             Endpoint = "https://www.exacttargetapis.com/push/v1/location";
             URLProperties = new string[0];
             RequiredURLProperties = new string[0];
-        }
-
-        public MobilePushLocation(JToken obj)
-        {
+            Radius = 0;
         }
 
         /// <summary>
@@ -94,7 +91,7 @@ namespace FuelSDK.MobilePush
             {
                 throw new ApplicationException("Name is either null or empty. Need to specify Name.");
             }
-            return MobilePushReturn.CreateLocation(this, RequestMethod.POST);
+            return MobilePushReturn.CreateLocation(this);
         }
 
         /// <summary>
@@ -110,7 +107,7 @@ namespace FuelSDK.MobilePush
             Endpoint = "https://www.exacttargetapis.com/push/v1/location/{LocationId}";
             URLProperties = new[] { "LocationId" };
             RequiredURLProperties = new[] { "LocationId" };
-            return MobilePushReturn.DeleteLocation(this, RequestMethod.DELETE);
+            return MobilePushReturn.DeleteLocation(this);
         }
 
         /// <summary>
@@ -127,9 +124,9 @@ namespace FuelSDK.MobilePush
             {
                 throw new ApplicationException("Name is either null or empty. Need to specify Name.");
             }
-            if (Radius == null)
+            if (Radius == 0)
             {
-                throw new ApplicationException("Radius is required.");
+                throw new ApplicationException("Radius is required and it can not be zero.");
             }
             if (Center == null)
             {
@@ -138,14 +135,14 @@ namespace FuelSDK.MobilePush
             Endpoint = "https://www.exacttargetapis.com/push/v1/location/{LocationId}";
             URLProperties = new[] { "LocationId" };
             RequiredURLProperties = new[] { "LocationId" };
-            return MobilePushReturn.UpdateLocation(this, RequestMethod.PUT);
+            return MobilePushReturn.UpdateLocation(this);
         }
 
         /// <summary>
         /// Gets a specific location by LocationId.
         /// </summary>
         /// <returns>MobilePushLocation object associated with the LocationId.</returns>
-        public MobilePushLocation GetSpecificLocation()
+        public MobilePushLocation GetLocation()
         {
             if (LocationId == null || LocationId.Length == 0)
             {
@@ -154,7 +151,7 @@ namespace FuelSDK.MobilePush
             Endpoint = "https://www.exacttargetapis.com/push/v1/location/{LocationId}";
             URLProperties = new[] { "LocationId" };
             RequiredURLProperties = new[] { "LocationId" };
-            return MobilePushReturn.GetLocation(this, RequestMethod.GET);
+            return MobilePushReturn.GetLocation(this);
         }
 
         /// <summary>
@@ -166,35 +163,5 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.GetLocations(this.AuthStub);
         }
 
-    }
-
-    /// <summary>
-    /// Represents a center point of the location circle
-    /// </summary>
-    public class LocationCenter
-    {
-        /// <summary>
-        /// Get or Set the geographic latitude of the location center
-        /// </summary>
-        public double Latitude { get; set; }
-        /// <summary>
-        /// Get or Set the geographic longitude of the location center
-        /// </summary>
-        public double Longitude { get; set; }
-    }
-
-    /// <summary>
-    /// Represents attributes for the location
-    /// </summary>
-    public class LocationAttribute
-    {
-        /// <summary>
-        /// Get or Set the name of the attribute
-        /// </summary>
-        public string Attribute { get; set; }
-        /// <summary>
-        /// Get or Set the value for the attribute
-        /// </summary>
-        public string Value { get; set; }
     }
 }

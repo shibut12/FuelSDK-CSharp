@@ -14,10 +14,10 @@ namespace FuelSDK.MobilePush
     internal class MobilePushReturn
     {
 
-       
-        public static MobilePushLocation CreateLocation(MobilePushLocation obj, RequestMethod method)
+
+        internal static MobilePushLocation CreateLocation(MobilePushLocation obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), true);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
             if (resp.Code == HttpStatusCode.Created)
             {
                 return JsonConvert.DeserializeObject<MobilePushLocation>(resp.Response);
@@ -30,9 +30,9 @@ namespace FuelSDK.MobilePush
 
         }
 
-        public static MobilePushLocation GetLocation(MobilePushLocation obj, RequestMethod method)
+        internal static MobilePushLocation GetLocation(MobilePushLocation obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
             if (resp.Code == HttpStatusCode.OK)
             {
                 return JsonConvert.DeserializeObject<MobilePushLocation>(resp.Response);
@@ -44,7 +44,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static MobilePushLocation[] GetLocations(ETClient client)
+        internal static MobilePushLocation[] GetLocations(ETClient client)
         {
             PushMessage obj = new PushMessage
             {
@@ -63,9 +63,9 @@ namespace FuelSDK.MobilePush
 
         }
 
-        public static bool DeleteLocation(MobilePushLocation obj, RequestMethod method)
+        internal static bool DeleteLocation(MobilePushLocation obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.DELETE.ToString(), false);
             if (resp.Code == HttpStatusCode.OK)
             {
                 return true;
@@ -77,9 +77,9 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static bool UpdateLocation(MobilePushLocation obj, RequestMethod method)
+        internal static bool UpdateLocation(MobilePushLocation obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), true);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.PUT.ToString(), true);
             if (resp.Code == HttpStatusCode.OK)
             {
                 return true;
@@ -91,7 +91,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static MobilePushCustomKey GetCustomKeys(MobilePushCustomKey obj, RequestMethod method)
+        internal static MobilePushCustomKey GetCustomKeys(MobilePushCustomKey obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
             if (resp.Code == HttpStatusCode.OK)
@@ -107,7 +107,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static bool DeleteCustomKeys(MobilePushCustomKey obj, RequestMethod method)
+        internal static bool DeleteCustomKeys(MobilePushCustomKey obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
             if (resp.Code == HttpStatusCode.OK)
@@ -121,7 +121,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static bool DeleteOneCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        internal static bool DeleteOneCustomKey(MobilePushCustomKey obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
             if (resp.Code == HttpStatusCode.OK)
@@ -135,7 +135,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static bool CreateCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        internal static bool CreateCustomKey(MobilePushCustomKey obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
             if (resp.Code == HttpStatusCode.OK || resp.Code == HttpStatusCode.Created)
@@ -149,7 +149,7 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        public static bool UpdateCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        internal static bool UpdateCustomKey(MobilePushCustomKey obj, RequestMethod method)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), true);
             if (resp.Code == HttpStatusCode.OK)

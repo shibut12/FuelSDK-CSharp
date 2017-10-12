@@ -36,20 +36,20 @@ namespace FuelSDK.Test
             MobilePushLocation loc = new MobilePushLocation
             {
                 AuthStub = client,
-                Name = "Location B",
-                Location = "Main Location on Elm Street",
-                Description = "Location at 123 Elm St, Nowhere, CA 00000",
-                Radius = 50,
+                Name = "Location SF Tower",
+                Location = "SF Tower Location on Ohio Street",
+                Description = "111 Monument Cir #222, Indianapolis, IN 46204",
+                Radius = 10,
                 Center = new LocationCenter
                 {
-                    Latitude = 30.750362,
-                    Longitude = -95.374712
+                    Latitude = 39.769624,
+                    Longitude = -86.157063
                 },
                 Attributes = new LocationAttribute[] 
                 {
-                     new LocationAttribute{Attribute="Address 1", Value="abcdefghijklm"},
-                     new LocationAttribute{Attribute="City", Value="bla bla"},
-                     new LocationAttribute{Attribute="State", Value="blah blah even more"}
+                     new LocationAttribute{Attribute="Address 1", Value="111 Monument Cir"},
+                     new LocationAttribute{Attribute="City", Value="Indianapolis"},
+                     new LocationAttribute{Attribute="State", Value="IN"}
                 }
             };
 
@@ -68,7 +68,7 @@ namespace FuelSDK.Test
                 LocationId = locId
             };
 
-            var cloc = loc.GetSpecificLocation();
+            var cloc = loc.GetLocation();
             Debug.WriteLine("Get Loc ID=" + cloc.LocationId);
             Assert.AreEqual(cloc.LocationId, locId);
         }

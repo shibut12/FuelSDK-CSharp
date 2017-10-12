@@ -58,7 +58,7 @@ namespace FuelSDK.MobilePush
         /// Deletes one custom key associated with the key name.
         /// </summary>
         /// <returns>retruns true if successfull, false or exception otherwise.</returns>
-        public bool DeleteOneCustomKey()
+        public bool DeleteCustomKey()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
@@ -74,7 +74,7 @@ namespace FuelSDK.MobilePush
             return MobilePushReturn.DeleteOneCustomKey(this, RequestMethod.DELETE);
         }
 
-        public MobilePushCustomKey GetCustomKey()
+        public MobilePushCustomKey GetCustomKeys()
         {
             if (ApplicationId == null || ApplicationId.Length == 0)
             {
