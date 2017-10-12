@@ -32,17 +32,17 @@ namespace FuelSDK.MobilePush
             }
         }
         public DateTime SendTime { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string BlackoutWindow { get; set; }
         [JsonProperty(PropertyName = "sound", NullValueHandling = NullValueHandling.Ignore)]
         public string SoundFileName { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Badge { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string OpenDirect { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Object CustomPayload { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public PushMessageKey[] CustomKeys { get; set; }
 
         public PushMessageSendObject()

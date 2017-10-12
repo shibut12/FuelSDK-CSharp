@@ -106,7 +106,7 @@ namespace FuelSDK.Test
             {
                 AuthStub = client
             };
-            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.MessageId = "NjA6MTE0OjA";
             msgObj.OverrideMessageText = "You won million dollars";
             msgObj.SendTime = DateTime.Now;
             var retval = PushMessage.SendPushMessage(msgObj);
