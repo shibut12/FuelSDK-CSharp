@@ -209,5 +209,11 @@ namespace FuelSDK.MobilePush
         {
             return MobilePushReturn.DeletePushMessage(client, id);
         }
+
+        public static bool SendPushMessage(PushMessageSendObject sendObj)
+        {
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+        
     }
 }

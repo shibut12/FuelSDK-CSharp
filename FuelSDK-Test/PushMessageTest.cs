@@ -98,5 +98,20 @@ namespace FuelSDK.Test
             Assert.IsTrue(retVal);
             pushMessage = null;
         }
+
+        [Test()]
+        public void SendPushMessage()
+        {
+            PushMessageSendObject msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.OverrideMessageText = "You won million dollars";
+            msgObj.SendTime = DateTime.Now;
+            var retval = PushMessage.SendPushMessage(msgObj);
+            Assert.IsTrue(retval);
+
+        }
     }
 }
