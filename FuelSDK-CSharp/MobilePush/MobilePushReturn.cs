@@ -1,4 +1,3 @@
-
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,7 +12,6 @@ namespace FuelSDK.MobilePush
 {
     internal class MobilePushReturn
     {
-
 
         internal static MobilePushLocation CreateLocation(MobilePushLocation obj)
         {
@@ -163,10 +161,6 @@ namespace FuelSDK.MobilePush
             }
         }
 
-
-     
-   
-
         internal static PushMessage CreatePushMessage(PushMessage obj)
         {
             var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
@@ -257,6 +251,48 @@ namespace FuelSDK.MobilePush
             if (resp.Code == HttpStatusCode.OK)
             {
                 return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool SendPushMessage(PushMessageSendObject obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), false);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static RefreshListResponse RefreshList(ContactList obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), false);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                return JsonConvert.DeserializeObject<RefreshListResponse>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static RefreshListResponse GetRefreshListStatus(ContactList obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<RefreshListResponse>(resp.Response);
             }
             else
             {
@@ -371,4 +407,3 @@ namespace FuelSDK.MobilePush
         }
     }
 }
-

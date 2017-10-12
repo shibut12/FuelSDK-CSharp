@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MobilePush\ContactList.cs" />
     <Compile Include="ETClient.cs" />
     <Compile Include="ETDataExtract.cs" />
     <Compile Include="ETExtractDescription.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="MobilePush\PushMessageApplication.cs" />
     <Compile Include="MobilePush\PushMessage.cs" />
     <Compile Include="MobilePush\PushMessageContentType.cs" />
+    <Compile Include="MobilePush\PushMessageSendObject.cs" />
     <Compile Include="MobilePush\PushMessageStatus.cs" />
     <Compile Include="MobilePush\PushMessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="APIObject.cs" />
     <Compile Include="FuelObject.cs" />
     <Compile Include="FuelReturn.cs" />
+    <Compile Include="RefreshListResponse.cs" />
     <Compile Include="RequestMethod.cs" />
     <Compile Include="ResultDetail.cs" />
     <Compile Include="PostReturn.cs" />

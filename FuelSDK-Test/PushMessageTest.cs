@@ -1,4 +1,4 @@
-﻿﻿using FuelSDK.MobilePush;
+﻿using FuelSDK.MobilePush;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -97,6 +97,21 @@ namespace FuelSDK.Test
             var retVal = PushMessage.DeletePushMessage(client, pushMessage.Id);
             Assert.IsTrue(retVal);
             pushMessage = null;
+        }
+
+        [Test()]
+        public void SendPushMessage()
+        {
+            PushMessageSendObject msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.OverrideMessageText = "You won million dollars";
+            msgObj.SendTime = DateTime.Now;
+            var retval = PushMessage.SendPushMessage(msgObj);
+            Assert.IsTrue(retval);
+
         }
     }
 }
