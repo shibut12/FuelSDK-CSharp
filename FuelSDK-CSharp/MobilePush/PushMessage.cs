@@ -214,6 +214,23 @@ namespace FuelSDK.MobilePush
         {
             return MobilePushReturn.SendPushMessage(sendObj);
         }
-        
+
+
+
+        public static bool SendPushMessageToList(PushMessageSendObject sendObj)
+        {
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+
+        public static bool SendPushMessageToTaggedUsers(PushMessageSendObject sendObj)
+        {
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+
+        public static bool SendPushMessageToDevices(PushMessageSendObject sendObj)
+        {
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+    
     }
 }

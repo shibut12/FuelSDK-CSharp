@@ -45,6 +45,17 @@ namespace FuelSDK.MobilePush
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public PushMessageKey[] CustomKeys { get; set; }
 
+
+
+        public string[] InclusionTags { get; set; }
+        public string[] ExclusionTags { get; set; }
+
+        public string[] InclusionListIds { get; set; }
+        public string[] ExclusionListIds { get; set; }
+
+        public string[] DeviceTokens { get; set; }
+        public string[] SubscriberKeys { get; set; }
+
         public PushMessageSendObject()
         {
             Override = false;
