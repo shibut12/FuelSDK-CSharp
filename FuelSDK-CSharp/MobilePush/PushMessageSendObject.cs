@@ -21,6 +21,7 @@ namespace FuelSDK.MobilePush
             }
             set
             {
+                messageText = value;    //added
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Override = false;
@@ -31,7 +32,9 @@ namespace FuelSDK.MobilePush
                 }
             }
         }
-        public DateTime SendTime { get; set; }
+        //changed
+        //public DateTime SendTime { get; set; }
+        public string SendTime { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string BlackoutWindow { get; set; }
         [JsonProperty(PropertyName = "sound", NullValueHandling = NullValueHandling.Ignore)]

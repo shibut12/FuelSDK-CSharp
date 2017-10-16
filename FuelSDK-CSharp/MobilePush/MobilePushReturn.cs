@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Diagnostics;
 
 namespace FuelSDK.MobilePush
 {
@@ -261,7 +262,8 @@ namespace FuelSDK.MobilePush
 
         internal static bool SendPushMessage(PushMessageSendObject obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), false);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);    //changed from false to true
+            Debug.WriteLine("Rest Out = "+resp.Message);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 return true;
@@ -336,6 +338,9 @@ namespace FuelSDK.MobilePush
                 if ((pushObj.URLProperties.Contains(prop.Name) && (propValue = prop.GetValue(pushObj, null)) != null) &&
                     ((propValueAsString = propValue.ToString().Trim()).Length > 0 && propValueAsString != "0"))
                 {
+                    //need to convert DateTime object if it is not string
+                    //if (prop.PropertyType == typeof(DateTime))
+                    //    propValueAsString = ((DateTime)prop.GetValue(pushObj, null)).ToString("yyyy-MM-dd HH:mm");
                     completeURL = completeURL.Replace("{" + prop.Name + "}", propValueAsString);
                 }
             }
