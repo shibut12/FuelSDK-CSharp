@@ -48,6 +48,86 @@ namespace FuelSDK.SMS
 
         }
 
+        internal ETSMSKeywordResponse PerformKeywordOperation(FuelObject obj, string method)
+        {
+            ETSMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            ETSMSKeywordResponse result = new ETSMSKeywordResponse();
+            if (!string.IsNullOrEmpty(resp.Response))
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Response);
+                if (x["keywordId"] != null)
+                {
+                    result.KeywordId = x["keywordId"].ToString();
+                }
+                else if (x["status"] != null)
+                {
+                    result.Status = x["status"].ToString();
+                }
+
+            }
+            else 
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Message);
+                if (x["errors"] != null)
+                {
+                    result.Error = x["errors"].ToString();
+                }
+            }
+            return result;
+        }
+
+        internal ETSMSOptInResponse OptInMessage(FuelObject obj, string method)
+        {
+            ETSMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            ETSMSOptInResponse result = new ETSMSOptInResponse();
+            if (!string.IsNullOrEmpty(resp.Response))
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Response);
+                if (x["messageID"] != null)
+                {
+                    result.MessageID = x["messageID"].ToString();
+                }
+
+            }
+            else
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Message);
+                if (x["message"] != null)
+                {
+                    result.Message = x["message"].ToString();
+                }
+                if (x["errors"] != null)
+                {
+                    result.Error = x["errors"].ToString();
+                }
+                if (x["errorcode"] != null)
+                {
+                    result.ErrorCode = x["errorcode"].ToString();
+                }
+                if (x["documentation"] != null)
+                {
+                    result.Documentation = x["documentation"].ToString();
+                }
+                if (x["validationErrors"] != null)
+                {
+                    result.ValidationErrors = x["validationErrors"].ToString();
+                }
+                if (x["objectErrors"] != null)
+                {
+                    result.ObjectErrors = x["objectErrors"].ToString();
+                }
+                if (x["fieldErrors"] != null)
+                {
+                    result.FieldErrors = x["fieldErrors"].ToString();
+                }
+            }
+            return result;
+        }
+
         private ETSMSResponse ExecuteFuel(FuelObject obj, string[] required, string method, bool postValue)
         {
             if (obj == null)

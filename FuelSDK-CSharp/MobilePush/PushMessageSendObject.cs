@@ -21,6 +21,7 @@ namespace FuelSDK.MobilePush
             }
             set
             {
+                messageText = value;    //added
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Override = false;
@@ -31,19 +32,32 @@ namespace FuelSDK.MobilePush
                 }
             }
         }
-        public DateTime SendTime { get; set; }
-        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //changed
+        //public DateTime SendTime { get; set; }
+        public string SendTime { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string BlackoutWindow { get; set; }
         [JsonProperty(PropertyName = "sound", NullValueHandling = NullValueHandling.Ignore)]
         public string SoundFileName { get; set; }
-        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Badge { get; set; }
-        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string OpenDirect { get; set; }
-        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Object CustomPayload { get; set; }
-        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public PushMessageKey[] CustomKeys { get; set; }
+
+
+
+        public string[] InclusionTags { get; set; }
+        public string[] ExclusionTags { get; set; }
+
+        public string[] InclusionListIds { get; set; }
+        public string[] ExclusionListIds { get; set; }
+
+        public string[] DeviceTokens { get; set; }
+        public string[] SubscriberKeys { get; set; }
 
         public PushMessageSendObject()
         {

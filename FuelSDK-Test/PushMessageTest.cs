@@ -106,12 +106,62 @@ namespace FuelSDK.Test
             {
                 AuthStub = client
             };
-            msgObj.MessageId = "NjA6MTE0OjA";
+            msgObj.MessageId = "NTE6MTE0OjA";
             msgObj.OverrideMessageText = "You won million dollars";
-            msgObj.SendTime = DateTime.Now;
+            //msgObj.SendTime = DateTime.Now;
+            msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessage(msgObj);
             Assert.IsTrue(retval);
 
         }
+
+        [Test()]
+        public void SendPushMessageToList()
+        {
+            PushMessageSendObject msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.OverrideMessageText = "Have a safe drive!";
+            msgObj.InclusionListIds = new string[] { "ce3b32fb-77af-e711-80d3-1402ec6b9528" };
+            msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm"); ;
+            var retval = PushMessage.SendPushMessage(msgObj);
+            Assert.IsTrue(retval);
+
+        }
+
+        [Test()]
+        public void SendPushMessageToTagUser()
+        {
+            PushMessageSendObject msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NTE6MTE0OjA";
+            msgObj.OverrideMessageText = "Have a safe drive!";
+            msgObj.InclusionTags = new string[] { "ALL6 More" };
+            msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            var retval = PushMessage.SendPushMessageToTaggedUsers(msgObj);
+            Assert.IsTrue(retval);
+
+        }
+
+        [Test()]
+        public void SendPushMessageToDevices()
+        {
+            PushMessageSendObject msgObj = new PushMessageSendObject
+            {
+                AuthStub = client
+            };
+            msgObj.MessageId = "NjA6MTE0OjA";    //"NTE6MTE0OjA";
+            msgObj.OverrideMessageText = "Send using device token!";
+            msgObj.DeviceTokens = new string[] { "2e5964ddeeb19c53ba407b075d34d6e4b8f719e143d10a37ca9f254d224ef457" };
+            //msgObj.SubscriberKeys = new string[] { "sharifahmed" };
+            msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            var retval = PushMessage.SendPushMessageToDevices(msgObj);
+            Assert.IsTrue(retval);
+        }
+
     }
 }

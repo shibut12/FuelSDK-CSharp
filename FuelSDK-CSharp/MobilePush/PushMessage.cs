@@ -214,6 +214,26 @@ namespace FuelSDK.MobilePush
         {
             return MobilePushReturn.SendPushMessage(sendObj);
         }
-        
+
+
+
+        public static bool SendPushMessageToList(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageList/{MessageId}/send";
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+
+        public static bool SendPushMessageToTaggedUsers(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageTag/{MessageId}/send";
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+
+        public static bool SendPushMessageToDevices(PushMessageSendObject sendObj)
+        {
+            sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageContact/{MessageId}/send";
+            return MobilePushReturn.SendPushMessage(sendObj);
+        }
+    
     }
 }

@@ -7,11 +7,160 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Diagnostics;
 
 namespace FuelSDK.MobilePush
 {
     internal class MobilePushReturn
     {
+
+        internal static MobilePushLocation CreateLocation(MobilePushLocation obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
+            if (resp.Code == HttpStatusCode.Created)
+            {
+                return JsonConvert.DeserializeObject<MobilePushLocation>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+
+        }
+
+        internal static MobilePushLocation GetLocation(MobilePushLocation obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<MobilePushLocation>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static MobilePushLocation[] GetLocations(ETClient client)
+        {
+            PushMessage obj = new PushMessage
+            {
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.GET.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<MobilePushLocation[]>(resp.Response);
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+
+        }
+
+        internal static bool DeleteLocation(MobilePushLocation obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.DELETE.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool UpdateLocation(MobilePushLocation obj)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.PUT.ToString(), true);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static MobilePushCustomKey GetCustomKeys(MobilePushCustomKey obj, RequestMethod method)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                string r = "{\"keys\": " + resp.Response + "}";
+                MobilePushCustomKey ret = JsonConvert.DeserializeObject<MobilePushCustomKey>(r);
+                return ret;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool DeleteCustomKeys(MobilePushCustomKey obj, RequestMethod method)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool DeleteOneCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool CreateCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), false);
+            if (resp.Code == HttpStatusCode.OK || resp.Code == HttpStatusCode.Created)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        internal static bool UpdateCustomKey(MobilePushCustomKey obj, RequestMethod method)
+        {
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, method.ToString(), true);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
 
         internal static PushMessage CreatePushMessage(PushMessage obj)
         {
@@ -113,7 +262,8 @@ namespace FuelSDK.MobilePush
 
         internal static bool SendPushMessage(PushMessageSendObject obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), false);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);    //changed from false to true
+            Debug.WriteLine("Rest Out = "+resp.Message);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 return true;
@@ -188,6 +338,9 @@ namespace FuelSDK.MobilePush
                 if ((pushObj.URLProperties.Contains(prop.Name) && (propValue = prop.GetValue(pushObj, null)) != null) &&
                     ((propValueAsString = propValue.ToString().Trim()).Length > 0 && propValueAsString != "0"))
                 {
+                    //need to convert DateTime object if it is not string
+                    //if (prop.PropertyType == typeof(DateTime))
+                    //    propValueAsString = ((DateTime)prop.GetValue(pushObj, null)).ToString("yyyy-MM-dd HH:mm");
                     completeURL = completeURL.Replace("{" + prop.Name + "}", propValueAsString);
                 }
             }
