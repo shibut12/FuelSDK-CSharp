@@ -9,7 +9,7 @@ namespace FuelSDK.MobilePush
     public class PushMessageSendObject : MobilePushBase
     {
         private string messageText;
-
+        private string sendTime;
         public string MessageId { get; set; }
         public bool Override { get; private set; }
         [JsonProperty(PropertyName = "messageText")]
@@ -21,7 +21,7 @@ namespace FuelSDK.MobilePush
             }
             set
             {
-                messageText = value;    //added
+                messageText = value;  
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Override = false;
@@ -32,9 +32,26 @@ namespace FuelSDK.MobilePush
                 }
             }
         }
-        //changed
-        //public DateTime SendTime { get; set; }
-        public string SendTime { get; set; }
+        public string SendTime {
+            get
+            {
+                return sendTime;
+            }
+            set
+            { 
+                DateTime dt = new DateTime();
+                
+                var ret = DateTime.TryParse(value, out dt);
+                if (ret)
+                {
+                    sendTime = dt.ToString("yyyy-MM-dd HH:mm");
+                }
+                else
+                {
+                    throw new FuelSDKException("Invalid date time value passed.");
+                }
+            }
+        }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string BlackoutWindow { get; set; }
         [JsonProperty(PropertyName = "sound", NullValueHandling = NullValueHandling.Ignore)]

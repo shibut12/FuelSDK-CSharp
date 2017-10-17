@@ -18,5 +18,10 @@ namespace FuelSDK
         {
             Errors = errors;
         }
+
+        public FuelSDKException(string error)
+        {
+            Errors = new[] { error };
+        }
     }
 }
