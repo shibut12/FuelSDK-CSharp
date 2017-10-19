@@ -204,35 +204,61 @@ namespace FuelSDK.MobilePush
         /// </summary>
         /// <param name="client">ETClient object <see cref="T:FuelSDK.ETClient"/></param>
         /// <param name="id">PushMessage Id to be deleted</param>
-        /// <returns>Returns true is successfully deleted</returns>
+        /// <returns>Returns true if successfully deleted</returns>
         public static bool DeletePushMessage(ETClient client, string id)
         {
             return MobilePushReturn.DeletePushMessage(client, id);
         }
-
+        /// <summary>
+        /// Send push message to all.
+        /// </summary>
+        /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
+        /// <returns>Returns true if successfully accepted for sending.</returns>
         public static bool SendPushMessage(PushMessageSendObject sendObj)
         {
             return MobilePushReturn.SendPushMessage(sendObj);
         }
-
-
-
+        /// <summary>
+        /// Sends a message to the specified mobile devices of a push-enabled app.
+        /// </summary>
+        /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
+        /// <returns>Returns true if successfully accepted for sending.</returns>
         public static bool SendPushMessageToList(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageList/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
         }
-
+        /// <summary>
+        /// Sends a push message to users with the specified tags.
+        /// </summary>
+        /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
+        /// <returns>Returns true if successfully accepted for sending.</returns>
         public static bool SendPushMessageToTaggedUsers(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageTag/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
         }
-
+        /// <summary>
+        /// Sends a message to the specified mobile devices of a push-enabled app.
+        /// </summary>
+        /// <param name="sendObj">Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
+        /// <returns>Returns true if successfully accepted for sending.</returns>
         public static bool SendPushMessageToDevices(PushMessageSendObject sendObj)
         {
             sendObj.Endpoint = "https://www.exacttargetapis.com/push/v1/messageContact/{MessageId}/send";
             return MobilePushReturn.SendPushMessage(sendObj);
+        }
+        /// <summary>
+        /// Sends unique messages to devices within the same API call. 
+        /// Each batch can include a maximum of 5000 subscriber key or device token values, depending on which value the call uses.
+        /// </summary>
+        /// <param name="client">ETClient object <see cref="T:FuelSDK.ETClient"/></param>
+        /// <param name="messageId">The ID of the message to send.</param>
+        /// <param name="payload">Array of Push message send object <see cref="T:namespace FuelSDK.MobilePush.PushMessageSendObject"/></param>
+        /// <returns>Returns true if successfully accepted for sending.</returns>
+        public static bool SendPushMessageBatch(ETClient client, string messageId, PushMessageSendObject[] payload)
+        {
+            return MobilePushReturn.SendPushMessageBatch(client, messageId, payload);
         }
     
     }

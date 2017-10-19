@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FuelSDK.MobilePush
 {
+    /// <summary>
+    /// Enumeration for Push message location type
+    /// </summary>
     public enum PushMessageLocationType
     {
         GEOFENCE = 1,

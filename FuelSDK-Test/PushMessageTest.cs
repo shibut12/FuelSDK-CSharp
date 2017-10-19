@@ -108,7 +108,6 @@ namespace FuelSDK.Test
             };
             msgObj.MessageId = "NTE6MTE0OjA";
             msgObj.OverrideMessageText = "You won million dollars";
-            //msgObj.SendTime = DateTime.Now;
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessage(msgObj);
             Assert.IsTrue(retval);
@@ -161,6 +160,26 @@ namespace FuelSDK.Test
             msgObj.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             var retval = PushMessage.SendPushMessageToDevices(msgObj);
             Assert.IsTrue(retval);
+        }
+
+        [Test()]
+        public void SendPushMessageBatch()
+        {
+            PushMessageSendObject msgObj1 = new PushMessageSendObject();
+            msgObj1.MessageId = "NjA6MTE0OjA";
+            msgObj1.OverrideMessageText = "Have a safe drive!";
+            msgObj1.DeviceTokens = new string[] { "2e5964ddeeb19c53ba407b075d34d6e4b8f719e143d10a37ca9f254d224ef457" };
+            msgObj1.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+
+            PushMessageSendObject msgObj2 = new PushMessageSendObject();
+            msgObj2.MessageId = "NjA6MTE0OjA";
+            msgObj2.OverrideMessageText = "Have a safe drive!";
+            msgObj2.SubscriberKeys = new[] { "SivakumarMunuswami" };
+            msgObj2.SendTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            var payload = new PushMessageSendObject[] { msgObj1, msgObj2 };
+
+            var retVal = PushMessage.SendPushMessageBatch(client, msgObj1.MessageId, payload);
+            Assert.IsTrue(retVal);
         }
 
     }

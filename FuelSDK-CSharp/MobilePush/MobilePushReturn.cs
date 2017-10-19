@@ -262,8 +262,7 @@ namespace FuelSDK.MobilePush
 
         internal static bool SendPushMessage(PushMessageSendObject obj)
         {
-            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);    
-            Debug.WriteLine("Rest Out = "+resp.Message);
+            var resp = ExecuteFuel(obj, obj.RequiredURLProperties, RequestMethod.POST.ToString(), true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 return true;
@@ -303,7 +302,26 @@ namespace FuelSDK.MobilePush
             }
         }
 
-        private static PushMessageResponse ExecuteFuel(MobilePushBase pushObj, string[] required, string method, bool postValue)
+        internal static bool SendPushMessageBatch(ETClient client,string messageId, PushMessageSendObject[] payload)
+        {
+            PushMessageSendObject pmso = new PushMessageSendObject
+            {
+                Endpoint = "https://www.exacttargetapis.com/push/v1/messageBatch/{MessageId}/send",
+                MessageId = messageId,
+                AuthStub = client
+            };
+            var resp = ExecuteFuel(pmso, pmso.RequiredURLProperties, RequestMethod.POST.ToString(), true, payload);
+            if (resp.Code == HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else
+            {
+                var errors = GetErrorList(resp.Message);
+                throw new FuelSDKException(errors);
+            }
+        }
+        private static PushMessageResponse ExecuteFuel(MobilePushBase pushObj, string[] required, string method, bool postValue, object payload = null)
         {
             if (pushObj == null)
                 throw new ArgumentNullException("PushMessage object is null");
@@ -361,8 +379,22 @@ namespace FuelSDK.MobilePush
             request.UserAgent = ETClient.SDKVersion;
 
             if (postValue)
+            {
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                    streamWriter.Write(JsonConvert.SerializeObject(pushObj));
+                {
+                    if (payload != null)
+                    {
+                        streamWriter.Write(JsonConvert.SerializeObject(payload));
+                    }
+                    else
+                    {
+
+                        streamWriter.Write(JsonConvert.SerializeObject(pushObj));
+
+                    }
+                }
+            }
+
 
             // Get the response
             try
