@@ -155,7 +155,9 @@
     <Compile Include="ETCampaignAsset.cs" />
     <Compile Include="ETEndpoint.cs" />
     <Compile Include="ExecuteAPIResponse.cs" />
-    <Compile Include="SMS\QueueMO.cs" />
+    <Compile Include="SMS\QueueMO.cs">
+      <SubType>code</SubType>
+    </Compile>
     <Compile Include="SMS\QueueMOResponse.cs" />
     <Compile Include="SMS\QueueMOResult.cs" />
     <Compile Include="SMS\SMSKeyword.cs" />
