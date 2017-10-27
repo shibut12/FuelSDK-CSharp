@@ -47,33 +47,6 @@ namespace FuelSDK.Test
             Assert.NotNull(response);
         }
 
-        [Test()]
-        public void CreateOptInTest()
-        {
-            SMSOptInMessage smsopt = new SMSOptInMessage
-            {
-                AuthStub = client,
-                Keyword = random,
-                CountryCode = "US",
-                ShortCode = "29860",
-                MessageName = "AWESOMEYOU05dbd8",
-                MessageOptInType = "Single",
-                ResponseMessage = "Hey, thanks for subscribing!",
-                OptInErrorMessage = "An error occurred. Please try again."
-
-            };
-
-            var response = smsopt.CreateOptInMessage();
-            Debug.WriteLine("Code=" + response.Code);
-            Debug.WriteLine("Error=" + response.Error);
-            //Debug.WriteLine("Keyword=" + random);
-            //keywordId = response.KeywordId;
-
-            //Assert.AreEqual(response.Code, HttpStatusCode.Accepted);
-            //Assert.NotNull(response.KeywordId);
-            Assert.NotNull(response.Error);
-        }
-
         private string CreateKeywordInternal()
         {
             smskey = new SMSKeyword

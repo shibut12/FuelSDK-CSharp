@@ -160,8 +160,10 @@
     </Compile>
     <Compile Include="SMS\QueueMOResponse.cs" />
     <Compile Include="SMS\QueueMOResult.cs" />
+    <Compile Include="SMS\SMSBlackoutWindow.cs" />
     <Compile Include="SMS\SMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
+    <Compile Include="SMS\SMSMessageContact.cs" />
     <Compile Include="SMS\SMSOptInMessage.cs" />
     <Compile Include="SMS\ETSMSOptInResponse.cs" />
     <Compile Include="SMS\SMSResponse.cs" />

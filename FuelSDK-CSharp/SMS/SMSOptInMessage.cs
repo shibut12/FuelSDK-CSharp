@@ -36,10 +36,6 @@ namespace FuelSDK.SMS
             RequiredURLProperties = new string[0];
         }
 
-        public ETSMSOptInResponse CreateOptInMessage()
-        {
-            SMSReturn smsreturn = new SMSReturn();
-            return smsreturn.CreateOptInMessage(this, "POST");
-        }
+        
     }
 }

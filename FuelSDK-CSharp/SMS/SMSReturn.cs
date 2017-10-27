@@ -56,85 +56,21 @@ namespace FuelSDK.SMS
             }
         }
 
-        internal ETSMSKeywordResponse PerformKeywordOperation(FuelObject obj, string method)
+        internal static string SendMessageToMobileNumbers(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
-            ETSMSKeywordResponse result = new ETSMSKeywordResponse();
-            if (!string.IsNullOrEmpty(resp.Response))
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            if (resp.Code == HttpStatusCode.Accepted)
             {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Response);
-                if (x["keywordId"] != null)
-                {
-                    result.KeywordId = x["keywordId"].ToString();
-                }
-                else if (x["status"] != null)
-                {
-                    result.Status = x["status"].ToString();
-                }
-
-            }
-            else 
-            {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Message);
-                if (x["errors"] != null)
-                {
-                    result.Error = x["errors"].ToString();
-                }
-            }
-            return result;
-        }
-
-        internal ETSMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
-        {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
-            ETSMSOptInResponse result = new ETSMSOptInResponse();
-            if (!string.IsNullOrEmpty(resp.Response))
-            {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Response);
-                if (x["messageID"] != null)
-                {
-                    result.MessageID = x["messageID"].ToString();
-                }
-
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["tokenId"].ToString();
             }
             else
             {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Message);
-                if (x["message"] != null)
-                {
-                    result.Message = x["message"].ToString();
-                }
-                if (x["errors"] != null)
-                {
-                    result.Error = x["errors"].ToString();
-                }
-                if (x["errorcode"] != null)
-                {
-                    result.ErrorCode = x["errorcode"].ToString();
-                }
-                if (x["documentation"] != null)
-                {
-                    result.Documentation = x["documentation"].ToString();
-                }
-                if (x["validationErrors"] != null)
-                {
-                    result.ValidationErrors = x["validationErrors"].ToString();
-                }
-                if (x["objectErrors"] != null)
-                {
-                    result.ObjectErrors = x["objectErrors"].ToString();
-                }
-                if (x["fieldErrors"] != null)
-                {
-                    result.FieldErrors = x["fieldErrors"].ToString();
-                }
+                throw new FuelSDKException(resp.Message);
             }
-            return result;
         }
+
+        
 
         private static SMSResponse ExecuteFuel(FuelObject obj, string[] required, string method, bool postValue)
         {

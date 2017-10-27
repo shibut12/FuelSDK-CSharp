@@ -8,7 +8,7 @@ using System.Net;
 namespace FuelSDK.Test
 {
     [TestFixture()]
-    public class ETQueueMOTest
+    public class QueueMOTest
     {
 
         ETClient client;
