@@ -10,47 +10,55 @@ using System.Text;
 
 namespace FuelSDK.SMS
 {
-    public class ETSMSReturn
+    internal class SMSReturn
     {
 
-        internal ETQueueMOResponse QueueMO(FuelObject obj)
+        internal static QueueMOResponse QueueMO(QueueMO obj)
         {
-            ETSMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
-            var result = new ETQueueMOResponse();
-            result.Code = resp.Code;
-            
-            var emoResp = new List<ETQueueMOResult>();
-            if (!string.IsNullOrEmpty(resp.Response))
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            if (resp.Code == HttpStatusCode.Accepted)
             {
-                result.Message = resp.Code.ToString();
-                var x = JObject.Parse(resp.Response);
-                if (x["results"] != null)
-                {
-                    var resultArray = x.Children<JProperty>().FirstOrDefault(o => o.Name == "results").Value;
-                    foreach (var item in resultArray)
-                    {
-                        emoResp.Add(item.ToObject<ETQueueMOResult>());
-                    }
-                }
+                var result = JsonConvert.DeserializeObject<QueueMOResponse>(resp.Response);
+                result.Code = resp.Code;
+                return result;
             }
-            else 
+            else
             {
-                var x = JObject.Parse(resp.Message);
-                if (x["errors"] != null)
-                {
-                    var resultArray = x.Children<JProperty>().FirstOrDefault(o => o.Name == "errors").Value;
-                    result.Message = resultArray[0].ToString();
-                }
-
+                throw new FuelSDKException(resp.Message);
             }
-            result.Results = emoResp.ToArray();
-            return result;
+        }
 
+        internal static string CreateKeyword(SMSKeyword obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["keywordId"].ToString();
+            }
+            else
+            {
+                throw new FuelSDKException(resp.Message);
+            }
+        }
+
+        internal static string DeleteKeywordByKeywordId(FuelObject obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "DELETE", false);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["status"].ToString();
+            }
+            else
+            {
+                throw new FuelSDKException(resp.Message);
+            }
         }
 
         internal ETSMSKeywordResponse PerformKeywordOperation(FuelObject obj, string method)
         {
-            ETSMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
             ETSMSKeywordResponse result = new ETSMSKeywordResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
@@ -78,9 +86,9 @@ namespace FuelSDK.SMS
             return result;
         }
 
-        internal ETSMSOptInResponse OptInMessage(FuelObject obj, string method)
+        internal ETSMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
         {
-            ETSMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
             ETSMSOptInResponse result = new ETSMSOptInResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
@@ -128,7 +136,7 @@ namespace FuelSDK.SMS
             return result;
         }
 
-        private ETSMSResponse ExecuteFuel(FuelObject obj, string[] required, string method, bool postValue)
+        private static SMSResponse ExecuteFuel(FuelObject obj, string[] required, string method, bool postValue)
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
@@ -186,7 +194,7 @@ namespace FuelSDK.SMS
                 using (var dataStream = response.GetResponseStream())
                 using (var reader = new StreamReader(dataStream))
                 {
-                    ETSMSResponse resp = new ETSMSResponse
+                    SMSResponse resp = new SMSResponse
                     {
                         Code = response.StatusCode,
                         Message = response.ToString(),
@@ -200,7 +208,7 @@ namespace FuelSDK.SMS
                 using (var stream = we.Response.GetResponseStream())
                 using (var reader = new StreamReader(stream))
                 {
-                    ETSMSResponse resp = new ETSMSResponse
+                    SMSResponse resp = new SMSResponse
                     {
                         Code = ((HttpWebResponse)we.Response).StatusCode,
                         Message = reader.ReadToEnd(),

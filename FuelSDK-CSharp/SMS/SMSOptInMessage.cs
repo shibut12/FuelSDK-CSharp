@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FuelSDK.SMS
 {
-    public class ETSMSOptIn : FuelObject
+    public class SMSOptInMessage : FuelObject
     {
         public string LongCode { get; set; }
         public string ShortCode { get; set; }
@@ -29,25 +29,17 @@ namespace FuelSDK.SMS
 
         public string MessageID { get; set; }
 
-        public ETSMSOptIn()
+        public SMSOptInMessage()
         {
             Endpoint = "https://www.exacttargetapis.com/sms/v1/message/optin";
             URLProperties = new string[0];
             RequiredURLProperties = new string[0];
         }
 
-        public ETSMSOptIn(JToken obj)
-        {
-            if (obj[0]["messageID"] != null)
-            {
-                MessageID = obj[0]["messageID"].ToString();
-            }
-        }
-
         public ETSMSOptInResponse CreateOptInMessage()
         {
-            ETSMSReturn smsreturn = new ETSMSReturn();
-            return smsreturn.OptInMessage(this, "POST");
+            SMSReturn smsreturn = new SMSReturn();
+            return smsreturn.CreateOptInMessage(this, "POST");
         }
     }
 }

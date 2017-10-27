@@ -155,16 +155,16 @@
     <Compile Include="ETCampaignAsset.cs" />
     <Compile Include="ETEndpoint.cs" />
     <Compile Include="ExecuteAPIResponse.cs" />
-    <Compile Include="SMS\ETQueueMO.cs" />
-    <Compile Include="SMS\ETQueueMOResponse.cs" />
-    <Compile Include="SMS\ETQueueMOResult.cs" />
-    <Compile Include="SMS\ETSMSKeyword.cs" />
+    <Compile Include="SMS\QueueMO.cs" />
+    <Compile Include="SMS\QueueMOResponse.cs" />
+    <Compile Include="SMS\QueueMOResult.cs" />
+    <Compile Include="SMS\SMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
-    <Compile Include="SMS\ETSMSOptIn.cs" />
+    <Compile Include="SMS\SMSOptInMessage.cs" />
     <Compile Include="SMS\ETSMSOptInResponse.cs" />
-    <Compile Include="SMS\ETSMSResponse.cs" />
-    <Compile Include="SMS\ETSMSReturn.cs" />
-    <Compile Include="SMS\ETSMSSubscriber.cs" />
+    <Compile Include="SMS\SMSResponse.cs" />
+    <Compile Include="SMS\SMSReturn.cs" />
+    <Compile Include="SMS\SMSSubscriber.cs" />
     <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
