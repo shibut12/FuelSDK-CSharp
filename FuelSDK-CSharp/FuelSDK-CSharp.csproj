@@ -163,7 +163,9 @@
     <Compile Include="SMS\SMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\SMSOptInMessage.cs" />
-    <Compile Include="SMS\ETSMSOptInResponse.cs" />
+    <Compile Include="SMS\SMSOptInResponse.cs" />
+    <Compile Include="SMS\SMSRefreshList.cs" />
+    <Compile Include="SMS\SMSRefreshListResponse.cs" />
     <Compile Include="SMS\SMSResponse.cs" />
     <Compile Include="SMS\SMSReturn.cs" />
     <Compile Include="SMS\SMSSubscriber.cs" />

@@ -86,10 +86,10 @@ namespace FuelSDK.SMS
             return result;
         }
 
-        internal ETSMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
+        internal SMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
         {
             SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
-            ETSMSOptInResponse result = new ETSMSOptInResponse();
+            SMSOptInResponse result = new SMSOptInResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
                 result.Code = resp.Code;
@@ -133,6 +133,36 @@ namespace FuelSDK.SMS
                     result.FieldErrors = x["fieldErrors"].ToString();
                 }
             }
+            return result;
+        }
+
+        internal SMSRefreshListResponse RefreshList(FuelObject obj, string method)
+        {
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            SMSRefreshListResponse result = new SMSRefreshListResponse();
+            if (!string.IsNullOrEmpty(resp.Response))
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Response);
+                if (x["tokenId"] != null)
+                {
+                    result.TokenId = x["tokenId"].ToString();
+                }
+                if (x["lastPublishDate"] != null)
+                {
+                    result.LastPublishDate = x["lastPublishDate"].ToString();
+                }
+            }
+            else
+            {
+                result.Code = resp.Code;
+                var x = JObject.Parse(resp.Message);
+                if (x["errors"] != null)
+                {
+                    result.Error = x["errors"].ToString();
+                }
+            }
+
             return result;
         }
 

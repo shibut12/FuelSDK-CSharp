@@ -61,6 +61,8 @@
     <Compile Include="MobilePushCustomKeyTest.cs" />
     <Compile Include="MobilePushLocationTest.cs" />
     <Compile Include="PushMessageTest.cs" />
+    <Compile Include="SMSOptInTest.cs" />
+    <Compile Include="SMSRefreshListTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
