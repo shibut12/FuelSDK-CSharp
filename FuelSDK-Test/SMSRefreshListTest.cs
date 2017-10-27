@@ -13,6 +13,7 @@ namespace FuelSDK.Test
     {
         ETClient client;
         string listID = "e49d684d-2cbb-e711-80d3-1402ec6b9528";
+        string tokenID = "";
 
         [OneTimeSetUp]
         public void Setup()
@@ -21,6 +22,12 @@ namespace FuelSDK.Test
         }
 
         [Test()]
+        public void RefreshListTest() 
+        {
+            DoRefreshList();
+            GetRefreshListStatus();
+        }
+
         public void DoRefreshList()
         {
             SMSRefreshList smsrefresh = new SMSRefreshList
@@ -31,10 +38,29 @@ namespace FuelSDK.Test
             var response = smsrefresh.RefreshList();
             Debug.WriteLine("Code=" + response.Code);
             Debug.WriteLine("TokenId=" + response.TokenId);
+            if (response.TokenId != null)
+                tokenID = response.TokenId;
 
             Assert.Null(response.Error);
             Assert.NotNull(response.TokenId);
             Assert.NotNull(response.LastPublishDate);
+        }
+
+        public void GetRefreshListStatus()
+        {
+            SMSRefreshList smsrefresh = new SMSRefreshList
+            {
+                AuthStub = client,
+                ListId = listID,
+                TokenId = tokenID
+            };
+
+            var response = smsrefresh.GetRefreshListStatus();
+            Debug.WriteLine("Code=" + response.Code);
+            Debug.WriteLine("TokenId=" + response.TokenId);
+
+            Assert.Null(response.Error);
+            Assert.NotNull(response.TokenId);
         }
     }
 
