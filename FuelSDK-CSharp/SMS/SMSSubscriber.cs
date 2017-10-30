@@ -18,6 +18,9 @@ namespace FuelSDK.SMS
         /// Subscriber's key.
         /// </summary>
         public string SubscriberKey { get; set; }
-
+        /// <summary>
+        /// Defines any additional attribute for a subscriber.
+        /// </summary>
+        public Attribute[] Attributes { get; set; }
     }
 }

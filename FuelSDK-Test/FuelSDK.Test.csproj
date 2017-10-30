@@ -49,7 +49,7 @@
     <Compile Include="ETListTest.cs" />
     <Compile Include="ETOpenEventTest.cs" />
     <Compile Include="ETQueryDefinitionTest.cs" />
-    <Compile Include="ETQueueMOTest.cs" />
+    <Compile Include="QueueMOTest.cs" />
     <Compile Include="ETResultMessageTest.cs" />
     <Compile Include="ETSentEventTest.cs" />
     <Compile Include="SMSKeywordTest.cs" />
@@ -63,6 +63,7 @@
     <Compile Include="PushMessageTest.cs" />
     <Compile Include="SMSOptInTest.cs" />
     <Compile Include="SMSRefreshListTest.cs" />
+    <Compile Include="SMSSendMessageTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

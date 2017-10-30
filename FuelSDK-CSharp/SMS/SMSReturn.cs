@@ -56,34 +56,18 @@ namespace FuelSDK.SMS
             }
         }
 
-        internal ETSMSKeywordResponse PerformKeywordOperation(FuelObject obj, string method)
+        internal static string SendMessageToMobileNumbers(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
-            ETSMSKeywordResponse result = new ETSMSKeywordResponse();
-            if (!string.IsNullOrEmpty(resp.Response))
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            if (resp.Code == HttpStatusCode.Accepted)
             {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Response);
-                if (x["keywordId"] != null)
-                {
-                    result.KeywordId = x["keywordId"].ToString();
-                }
-                else if (x["status"] != null)
-                {
-                    result.Status = x["status"].ToString();
-                }
-
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["tokenId"].ToString();
             }
-            else 
+            else
             {
-                result.Code = resp.Code;
-                var x = JObject.Parse(resp.Message);
-                if (x["errors"] != null)
-                {
-                    result.Error = x["errors"].ToString();
-                }
+                throw new FuelSDKException(resp.Message);
             }
-            return result;
         }
 
         internal SMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
