@@ -24,7 +24,7 @@ namespace FuelSDK.SMS
             }
             else
             {
-                throw new FuelSDKException(resp.Message);
+                throw new FuelSDKException(GetErrors(resp));
             }
         }
 
@@ -38,7 +38,7 @@ namespace FuelSDK.SMS
             }
             else
             {
-                throw new FuelSDKException(resp.Message);
+                throw new FuelSDKException(GetErrors(resp));
             }
         }
 
@@ -52,7 +52,7 @@ namespace FuelSDK.SMS
             }
             else
             {
-                throw new FuelSDKException(resp.Message);
+                throw new FuelSDKException(GetErrors(resp));
             }
         }
 
@@ -66,7 +66,20 @@ namespace FuelSDK.SMS
             }
             else
             {
-                throw new FuelSDKException(resp.Message);
+                throw new FuelSDKException(GetErrors(resp));
+            }
+        }
+
+        internal static SMSMessageStatus GetMessageContactStatus(FuelObject obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, "GET", false);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                return JsonConvert.DeserializeObject<SMSMessageStatus>(resp.Response);
+            }
+            else
+            {
+                throw new FuelSDKException(GetErrors(resp));
             }
         }
 
@@ -190,10 +203,16 @@ namespace FuelSDK.SMS
             }
             else
             { 
-                var errorsObj = JObject.Parse(resp.Message);
-                var errors = JsonConvert.DeserializeObject<string[]>(errorsObj["errors"].ToString());
-                throw new FuelSDKException(errors);
+                
+                throw new FuelSDKException(GetErrors(resp));
             }
+        }
+
+        private static string[] GetErrors(SMSResponse resp)
+        {
+            var errorsObj = JObject.Parse(resp.Message);
+            return JsonConvert.DeserializeObject<string[]>(errorsObj["errors"].ToString());
+            
         }
 
         private static SMSResponse ExecuteFuel(FuelObject obj, string method, bool postValue)
