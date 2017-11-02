@@ -72,5 +72,26 @@ namespace FuelSDK.Test
             var response = msgContact.SendMessage();
             Assert.IsNotNull(response);
         }
+
+        [Test()]
+        public void SendMessageToList()
+        {
+            SMSMessageList msgList = new SMSMessageList
+            {
+                MessageId = "MjE6Nzg6MA",
+                AuthStub = client,
+                TargetListIds = new[] { "9cc85cc3-90b9-e711-80d3-1402ec6b9528" },
+                OverrideTemplateTargetLists = true,
+                OverrideTemplateExclusionLists = false,
+                IgnoreExclusionLists = true,
+                OverrideMessageText = true,
+                AllowDuplication = false,
+                MessageText = "Send Message To Mobile Numbers",
+                SendTime = DateTime.Now
+            };
+            var response = msgList.SendMessageToList();
+            Assert.IsNotNull(response);
+        }
+
     }
 }

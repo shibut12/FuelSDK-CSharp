@@ -70,6 +70,20 @@ namespace FuelSDK.SMS
             }
         }
 
+        internal static string SendMessageToList(FuelObject obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            if (resp.Code == HttpStatusCode.Accepted)
+            {
+                var jObj = JObject.Parse(resp.Response);
+                return jObj["tokenId"].ToString();
+            }
+            else
+            {
+                throw new FuelSDKException(resp.Message);
+            }
+        }
+
         internal SMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
         {
             SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
