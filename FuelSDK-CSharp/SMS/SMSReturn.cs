@@ -15,7 +15,7 @@ namespace FuelSDK.SMS
 
         internal static QueueMOResponse QueueMO(QueueMO obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            SMSResponse resp = ExecuteFuel(obj, "POST", true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var result = JsonConvert.DeserializeObject<QueueMOResponse>(resp.Response);
@@ -30,7 +30,7 @@ namespace FuelSDK.SMS
 
         internal static string CreateKeyword(SMSKeyword obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            SMSResponse resp = ExecuteFuel(obj, "POST", true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var jObj = JObject.Parse(resp.Response);
@@ -44,7 +44,7 @@ namespace FuelSDK.SMS
 
         internal static string DeleteKeywordByKeywordId(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "DELETE", false);
+            SMSResponse resp = ExecuteFuel(obj,  "DELETE", false);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var jObj = JObject.Parse(resp.Response);
@@ -58,7 +58,7 @@ namespace FuelSDK.SMS
 
         internal static string SendMessageToMobileNumbers(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            SMSResponse resp = ExecuteFuel(obj,  "POST", true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var jObj = JObject.Parse(resp.Response);
@@ -72,7 +72,7 @@ namespace FuelSDK.SMS
 
         internal SMSOptInResponse CreateOptInMessage(FuelObject obj, string method)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            SMSResponse resp = ExecuteFuel(obj,method, true);
             SMSOptInResponse result = new SMSOptInResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
@@ -122,7 +122,7 @@ namespace FuelSDK.SMS
 
         internal SMSRefreshListResponse RefreshList(FuelObject obj, string method)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, true);
+            SMSResponse resp = ExecuteFuel(obj,  method, true);
             SMSRefreshListResponse result = new SMSRefreshListResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
@@ -152,7 +152,7 @@ namespace FuelSDK.SMS
 
         internal SMSRefreshListResponse GetRefreshListStatus(FuelObject obj, string method)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, method, false);
+            SMSResponse resp = ExecuteFuel(obj,  method, false);
             SMSRefreshListResponse result = new SMSRefreshListResponse();
             if (!string.IsNullOrEmpty(resp.Response))
             {
@@ -180,7 +180,23 @@ namespace FuelSDK.SMS
             return result;
         }
 
-        private static SMSResponse ExecuteFuel(FuelObject obj, string[] required, string method, bool postValue)
+        internal static SMSTracking[] GetQueueMODeliveryStatus(FuelObject obj)
+        {
+            SMSResponse resp = ExecuteFuel(obj, "GET", false);
+            if (!string.IsNullOrWhiteSpace(resp.Response))
+            {
+                var trackObj = JObject.Parse(resp.Response);
+                return JsonConvert.DeserializeObject<SMSTracking[]>(trackObj["tracking"].ToString());
+            }
+            else
+            { 
+                var errorsObj = JObject.Parse(resp.Message);
+                var errors = JsonConvert.DeserializeObject<string[]>(errorsObj["errors"].ToString());
+                throw new FuelSDKException(errors);
+            }
+        }
+
+        private static SMSResponse ExecuteFuel(FuelObject obj, string method, bool postValue)
         {
             if (obj == null)
                 throw new ArgumentNullException("obj");
@@ -189,8 +205,9 @@ namespace FuelSDK.SMS
             object propValue;
             string propValueAsString;
             var completeURL = obj.Endpoint;
-            if (required != null)
-                foreach (string urlProp in required)
+            if (obj.RequiredURLProperties != null)
+            {
+                foreach (string urlProp in obj.RequiredURLProperties)
                 {
                     var match = false;
                     foreach (var prop in obj.GetType().GetProperties())
@@ -204,6 +221,7 @@ namespace FuelSDK.SMS
                     if (!match)
                         throw new Exception("Unable to process request due to missing required property: " + urlProp);
                 }
+            }
             foreach (var prop in obj.GetType().GetProperties())
             {
                 if (prop.Name == "UniqueID")

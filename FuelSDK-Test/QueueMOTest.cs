@@ -13,7 +13,7 @@ namespace FuelSDK.Test
 
         ETClient client;
         QueueMO queue;
-
+        QueueMOResponse qResponse;
 
 
         [OneTimeSetUp]
@@ -31,11 +31,11 @@ namespace FuelSDK.Test
             {
                 AuthStub = client,
                 MobileNumbers = new[] { "12055550100", "12515550100" },
-                MessageText = "MC_SDK",
+                MessageText = "MC_SDK_NEW",
                 ShortCode = "10766790"
             };
-            var response = queue.QueueMOForMobileNumbers();
-            Assert.AreEqual(response.Code, HttpStatusCode.Accepted);
+            qResponse = queue.QueueMOForMobileNumbers();
+            Assert.AreEqual(qResponse.Code, HttpStatusCode.Accepted);
 
         }
 
@@ -64,6 +64,17 @@ namespace FuelSDK.Test
             var response = queue.QueueMOForSubscribers();
             Assert.AreEqual(response.Code, HttpStatusCode.Accepted);
 
+        }
+
+        [Test()]
+        public void GetQueueMODeliveryStatus()
+        {
+            QueueMessageForMobileNumbers();
+            foreach (var resp in qResponse.Results)
+            {
+                var response = queue.GetDeliveryStatus(resp.Identifier);
+                Assert.IsNotNull(response);
+            }
         }
 
     }

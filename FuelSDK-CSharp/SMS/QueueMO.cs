@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,11 @@ namespace FuelSDK.SMS
         /// SMS text message.
         /// </summary>
         public string MessageText { get; set; }
-        
+        /// <summary>
+        /// Token Id returned from successfull queue request.
+        /// </summary>
+        [JsonIgnore]
+        public string TokenId { get; set; }
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -74,6 +79,21 @@ namespace FuelSDK.SMS
             }
             Subscribers = null;
             return SMSReturn.QueueMO(this);
+        }
+
+        /// <summary>
+        /// Get Queue MO message status.
+        /// </summary>
+        /// <param name="tokenId">Token Id received during successfull Queue MO request for which status is requested.</param>
+        /// <returns>Array of Tracking information for each mobile numbers.<see cref="T:namespace FuelSDK.SMS.SMSTracking"/></returns>
+        public SMSTracking[] GetDeliveryStatus(string tokenId)
+        {
+            TokenId = tokenId;
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/queueMO/deliveries/{TokenId}";
+            URLProperties = new string[1] { "TokenId" };
+            RequiredURLProperties = new string[1] { "TokenId" };
+            return SMSReturn.GetQueueMODeliveryStatus(this);
+
         }
     }
 }

@@ -172,6 +172,7 @@
     <Compile Include="SMS\SMSReturn.cs" />
     <Compile Include="SMS\SMSSubscriber.cs" />
     <Compile Include="SMS\ETSMSSubscriptionStatus.cs" />
+    <Compile Include="SMS\SMSTracking.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
