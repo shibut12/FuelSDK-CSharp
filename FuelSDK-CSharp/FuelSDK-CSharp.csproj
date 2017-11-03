@@ -157,7 +157,7 @@
     <Compile Include="ExecuteAPIResponse.cs" />
     <Compile Include="SMS\QueueMO.cs">
       <SubType>code</SubType>
-    </Compile>
+    </Compile>   
     <Compile Include="SMS\QueueMOResponse.cs" />
     <Compile Include="SMS\QueueMOResult.cs" />
     <Compile Include="SMS\SMSBlackoutWindow.cs" />
@@ -165,6 +165,7 @@
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\SMSMessageContact.cs" />
     <Compile Include="SMS\SMSMessageStatus.cs" />
+    <Compile Include="SMS\SMSMessageList.cs" />
     <Compile Include="SMS\SMSOptInMessage.cs" />
     <Compile Include="SMS\SMSOptInResponse.cs" />
     <Compile Include="SMS\SMSRefreshList.cs" />
