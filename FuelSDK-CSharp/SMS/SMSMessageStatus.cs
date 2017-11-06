@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FuelSDK.SMS
 {
+    /// <summary>
+    /// Class represents the SMS message status object.
+    /// </summary>
     public class SMSMessageStatus
     {
         /// <summary>
@@ -36,6 +39,6 @@ namespace FuelSDK.SMS
         /// Tracking information of each mobile number message sent to.
         /// <see cref="T:FuelSDK.SMS.SMSTracking"/>
         /// </summary>
-        public SMSTracking Tracking { get; set; }
+        public SMSTracking[] Tracking { get; set; }
     }
 }

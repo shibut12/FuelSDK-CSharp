@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace FuelSDK.Test
 {
@@ -11,7 +12,7 @@ namespace FuelSDK.Test
     public class SMSSendMessageTest
     {
         ETClient client;
-
+        string tokenId;
 
         [OneTimeSetUp]
         public void Setup()
@@ -39,8 +40,8 @@ namespace FuelSDK.Test
                 MessageText = "Send Message To Mobile Numbers",
                 SendTime = DateTime.Now
             };
-            var response = msgContact.SendMessage();
-            Assert.IsNotNull(response);
+            tokenId = msgContact.SendMessage();
+            Assert.IsNotNull(tokenId);
         }
 
         [Test()]
@@ -89,9 +90,36 @@ namespace FuelSDK.Test
                 MessageText = "Send Message To Mobile Numbers",
                 SendTime = DateTime.Now
             };
-            var response = msgList.SendMessageToList();
-            Assert.IsNotNull(response);
+            tokenId = msgList.SendMessageToList();
+            Assert.IsNotNull(tokenId);
         }
+
+        [Test()]
+        public void GetSMSMessageContactStatus()
+        {
+            SendMessageToMobileNumbers();
+            Thread.Sleep(10000);
+            SMSMessageContact msgContact = new SMSMessageContact
+            {
+                AuthStub = client
+            };
+            var resp = msgContact.GetDeliveryStatus("MjE6Nzg6MA", tokenId);
+            Assert.IsNotNull(resp);
+        }
+
+        [Test()]
+        public void GetSMSMessageToListStatus()
+        {
+            SendMessageToList();
+            Thread.Sleep(10000);
+            SMSMessageList msgList = new SMSMessageList
+            {
+                AuthStub = client
+            };
+            var resp = msgList.GetDeliveryStatus("MjE6Nzg6MA", tokenId);
+            Assert.IsNotNull(resp);
+        }
+
 
     }
 }

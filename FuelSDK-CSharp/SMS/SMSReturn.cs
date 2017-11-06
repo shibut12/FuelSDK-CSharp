@@ -70,10 +70,10 @@ namespace FuelSDK.SMS
             }
         }
 
-        internal static SMSMessageStatus GetMessageContactStatus(FuelObject obj)
+        internal static SMSMessageStatus GetSMSMessageStatus(FuelObject obj)
         {
             SMSResponse resp = ExecuteFuel(obj, "GET", false);
-            if (resp.Code == HttpStatusCode.Accepted)
+            if (resp.Code == HttpStatusCode.OK)
             {
                 return JsonConvert.DeserializeObject<SMSMessageStatus>(resp.Response);
             }
@@ -85,7 +85,7 @@ namespace FuelSDK.SMS
 
         internal static string SendMessageToList(FuelObject obj)
         {
-            SMSResponse resp = ExecuteFuel(obj, obj.RequiredURLProperties, "POST", true);
+            SMSResponse resp = ExecuteFuel(obj, "POST", true);
             if (resp.Code == HttpStatusCode.Accepted)
             {
                 var jObj = JObject.Parse(resp.Response);

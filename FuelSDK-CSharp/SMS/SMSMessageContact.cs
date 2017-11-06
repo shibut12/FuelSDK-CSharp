@@ -100,7 +100,7 @@ namespace FuelSDK.SMS
             Endpoint = "https://www.exacttargetapis.com/sms/v1/messageContact/{MessageId}/deliveries/{TokenId}";
             URLProperties = new string[2] { "MessageId", "TokenId" };
             RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
-            return SMSReturn.GetMessageContactStatus(this);
+            return SMSReturn.GetSMSMessageStatus(this);
         }
     }
 }

@@ -58,7 +58,10 @@ namespace FuelSDK.SMS
         /// The URL of the media content sent via an MMS message
         /// </summary>
         public string ContentURL { get; set; }
-
+        /// <summary>
+        /// Token Id returned when SMS message send request sent. This token id is used to further track the status of the request.
+        /// </summary>
+        public string TokenId { get; set; }
         /// <summary>
         /// Default constructor. Initialize the default endpoint, URLProperties and requried URL properties.
         /// </summary>
@@ -77,5 +80,21 @@ namespace FuelSDK.SMS
         {
             return SMSReturn.SendMessageToList(this);
         }
+
+        /// <summary>
+        /// Retrieves the overall delivery status of a message to a contact.
+        /// </summary>
+        /// <param name="messageId">Message Id provided for the messageContact</param>
+        /// <param name="tokenId">Token Id returned for the messageContact</param>
+        /// <returns>SMS message status.<see cref="T:FuelSDK.SMS.SMSMessageStatus"/></returns>
+        public SMSMessageStatus GetDeliveryStatus(string messageId, string tokenId)
+        {
+            TokenId = tokenId;
+            MessageId = messageId;
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/messageList/{MessageId}/deliveries/{TokenId}";
+            URLProperties = new string[2] { "MessageId", "TokenId" };
+            RequiredURLProperties = new string[2] { "MessageId", "TokenId" };
+            return SMSReturn.GetSMSMessageStatus(this);
+        } 
     }
 }
