@@ -52,6 +52,7 @@
     <Compile Include="QueueMOTest.cs" />
     <Compile Include="ETResultMessageTest.cs" />
     <Compile Include="ETSentEventTest.cs" />
+    <Compile Include="SMSContactsImportTest.cs" />
     <Compile Include="SMSKeywordTest.cs" />
     <Compile Include="ETSMSSubscriptionStatusTest.cs" />
     <Compile Include="ETSubscriberTest.cs" />

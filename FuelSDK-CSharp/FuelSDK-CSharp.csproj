@@ -157,10 +157,12 @@
     <Compile Include="ExecuteAPIResponse.cs" />
     <Compile Include="SMS\QueueMO.cs">
       <SubType>code</SubType>
-    </Compile>   
+    </Compile>
     <Compile Include="SMS\QueueMOResponse.cs" />
     <Compile Include="SMS\QueueMOResult.cs" />
     <Compile Include="SMS\SMSBlackoutWindow.cs" />
+    <Compile Include="SMS\SMSContactsImporter.cs" />
+    <Compile Include="SMS\SMSContactsImportFieldMap.cs" />
     <Compile Include="SMS\SMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\SMSMessageContact.cs" />
