@@ -32,7 +32,7 @@ namespace FuelSDK.SMS
         public string EmailAddress { get; set; }
         /// <summary>
         /// Import mapping type.
-        /// Possible values: MapByHeaderRows, MapByOrdinal
+        /// Possible values: MapByHeaderRows, MapByOrdinal, MapManual
         /// </summary>
         public string ImportMappingType { get; set; }
         /// <summary>
@@ -52,16 +52,22 @@ namespace FuelSDK.SMS
         /// </summary>
         public SMSContactsImportFieldMap[] FieldMaps { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public SMSContactsImporter()
         {
-            Endpoint = "https://www.exacttargetapis.com//sms/v1/contacts/queueImport/{ListId}";
+            Endpoint = "https://www.exacttargetapis.com/sms/v1/contacts/queueImport/{ListId}";
             URLProperties = new string[1] { "ListId" };
             RequiredURLProperties = new string[1] { "ListId" };
         }
-
+        /// <summary>
+        /// Queues an contacts import job.
+        /// </summary>
+        /// <returns>TokenId as string. This token Id can be used to track the status of the import request.</returns>
         public string QueueImport()
         {
-            return SMSReturn.QueueContactsImport(this);
+            return SMSReturn.ExecutePost(this);
         }
     }
 }

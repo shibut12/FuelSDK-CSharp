@@ -163,6 +163,8 @@
     <Compile Include="SMS\SMSBlackoutWindow.cs" />
     <Compile Include="SMS\SMSContactsImporter.cs" />
     <Compile Include="SMS\SMSContactsImportFieldMap.cs" />
+    <Compile Include="SMS\SMSImportDefinition.cs" />
+    <Compile Include="SMS\SMSImportSender.cs" />
     <Compile Include="SMS\SMSKeyword.cs" />
     <Compile Include="SMS\ETSMSKeywordResponse.cs" />
     <Compile Include="SMS\SMSMessageContact.cs" />

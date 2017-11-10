@@ -222,10 +222,10 @@ namespace FuelSDK.SMS
             }
         }
 
-        internal static string QueueContactsImport(FuelObject obj)
+        internal static string ExecutePost(FuelObject obj)
         {
             SMSResponse resp = ExecuteFuel(obj, "POST", true);
-            if (resp.Code == HttpStatusCode.Accepted)
+            if (resp.Code == HttpStatusCode.Accepted || resp.Code == HttpStatusCode.Created)
             {
                 var jObj = JObject.Parse(resp.Response);
                 return jObj["tokenId"].ToString();

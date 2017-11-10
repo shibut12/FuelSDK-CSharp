@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FuelSDK.Test
 {
-    public class SMSContactsImportTest
+    public class SMSContactsImportAndSendTest
     {
         ETClient client;
         string tokenId;
@@ -19,7 +19,7 @@ namespace FuelSDK.Test
         }
 
         [SetUp]
-        public void SMSContactsImportSetup()
+        public void SMSContactsImportAndSendSetup()
         {
         }
 
@@ -28,7 +28,7 @@ namespace FuelSDK.Test
         /// Update email address to receive email alert.
         /// </summary>
         [Test()]
-        public void QueueContactsImport()
+        public void ImportContactsAndSendMessage()
         {
             SMSContactsImportFieldMap fieldMap1 = new SMSContactsImportFieldMap
             {
@@ -48,23 +48,26 @@ namespace FuelSDK.Test
                 Ordinal = 1,
                 Source = "Subscriber Key"
             };
-            SMSContactsImporter contactsImporter = new SMSContactsImporter
+            SMSImportDefinition importDef = new SMSImportDefinition
+            {
+                ImportType = "FILE",
+                FileName = "importtest.csv",
+                ImportMappingType = "MapByOrdinal",
+                FieldMaps = new SMSContactsImportFieldMap[] { fieldMap1, fieldMap2, fieldMap3 }
+            };
+            SMSImportSender sender = new SMSImportSender
             {
                 AuthStub = client,
-                ListId = "9cc85cc3-90b9-e711-80d3-1402ec6b9528",
-                ShortCode = "10766790",
-                Keyword = "MC_SDK",
-                SendEmailNotification = true,
-                EmailAddress = "test@test.com",
-                ImportMappingType = "MapByOrdinal",
-                // make sure this file is in enhanced ftp site import folder before running the test
-                FileName = "importtest.csv",
-                FileType = "csv",
-                IsFirstRowHeader = true,
-                FieldMaps = new SMSContactsImportFieldMap[] { fieldMap1, fieldMap2, fieldMap3}
+                MessageId = "MjE6Nzg6MA",
+                Keyword = "DBE05D",
+                NotificationEmail = "test@test.com",
+                IsDuplicationAllowed = true,
+                Override = true,
+                OverrideText = "SMS Import Sender Test Message",
+                ImportDefinition = new SMSImportDefinition[1] { importDef }
             };
 
-            var resp = contactsImporter.QueueImport();
+            var resp = sender.ImportAndSend();
             Assert.IsNotNull(resp);
         }
     }
